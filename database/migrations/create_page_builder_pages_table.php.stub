@@ -10,7 +10,6 @@ class CreatePageBuilderPagesTable extends Migration
     {
         Schema::create('page_builder_pages', function (Blueprint $table) {
             $table->id();
-            $table->string('label');
             $table->json('structure');
             $table->timestamps();
         });
