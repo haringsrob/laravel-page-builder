@@ -2,7 +2,7 @@
 
 namespace Haringsrob\LaravelPageBuilder;
 
-use App\View\Components\BuilderContent;
+use Haringsrob\LaravelPageBuilder\View\Components\BuilderContent;
 use Illuminate\Support\Collection;
 
 class PageBuilderCollection extends Collection

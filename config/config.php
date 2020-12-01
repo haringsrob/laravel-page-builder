@@ -1,7 +1,7 @@
 <?php
 
 /*
- * You can place your custom package configuration in here.
+ * Placeholder, currently no config options.
  */
 return [
 

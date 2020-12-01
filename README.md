@@ -28,6 +28,12 @@ You can install the package via composer:
 composer require haringsrob/laravel-page-builder
 ```
 
+And publish the migration:
+
+```bash
+php artisan vendor:publish --provider="Haringsrob\LaravelPageBuilder\LaravelPageBuilderServiceProvider" --tag="migrations"
+```
+
 ### Creating a component
 
 A page builder component is an extension from a regular component.
@@ -150,6 +156,10 @@ This produces the following:
 
 * I must admit, the ui can be improved quite a lot, but as this is a first prototype it works
 great!
+
+## More examples
+
+For more examples check the src/View directory or the tests.
 
 ## Contributing
 

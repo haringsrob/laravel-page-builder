@@ -16,14 +16,6 @@ class LaravelPageBuilderServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /*
-         * Optional methods to load your package assets
-         */
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'laravel-page-builder');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-page-builder');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
-        //
         Nova::serving(function () {
             Nova::script('laravel-page-builder-field', __DIR__ . '/../dist/js/field.js');
             Nova::style('laravel-page-builder-field', __DIR__ . '/../dist/css/field.css');
@@ -46,19 +38,6 @@ class LaravelPageBuilderServiceProvider extends ServiceProvider
                     ),
                 ], 'migrations');
             }
-
-            // Publishing assets.
-            /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/laravel-page-builder'),
-            ], 'assets');*/
-
-            // Publishing the translation files.
-            /*$this->publishes([
-                __DIR__.'/../resources/lang' => resource_path('lang/vendor/laravel-page-builder'),
-            ], 'lang');*/
-
-            // Registering package commands.
-            // $this->commands([]);
         }
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'laravel-page-builder');
@@ -81,10 +60,5 @@ class LaravelPageBuilderServiceProvider extends ServiceProvider
     {
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'laravel-page-builder');
-
-        // Register the main class to use with the facade
-        $this->app->singleton('laravel-page-builder', function () {
-            return new LaravelPageBuilder;
-        });
     }
 }
