@@ -2,23 +2,22 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/haringsrob/laravel-page-builder.svg?style=flat-square)](https://packagist.org/packages/haringsrob/laravel-page-builder)
 
-Laravel page builder is a package for Laravel that allows you to easily construct
-pages using a customer [Laravel Nova](https://nova.laravel.com) field and Laravel Blade components.
+Laravel page builder is a package for Laravel that allows you to easily construct pages using a code definition or in a
+custom [Laravel Nova](https://nova.laravel.com) field and Laravel Blade components.
 
-I made this package as I like the idea of page builders, but I really dislike the idea
-of unstructured data or html stored in the database.
+I made this package as I like the idea of page builders, but I really dislike the idea of unstructured data or html
+stored in the database.
 
-I want to have the ability to define components easily (blade) and stick with how
-I would make regular templates. In addition to that, I want to have the ability to modify
-the components I create when a visual change is needed, without needing to rebuild the page.
+I want to have the ability to define components easily (blade) and stick with how I would make regular templates. In
+addition to that, I want to have the ability to modify the components I create when a visual change is needed, without
+needing to rebuild the page.
 
 The contents of the page builder are stored in a structured json object.
 
-The package provides a few example components, but components should still be added by
-your project.
+The package provides a few example components, but components should still be added by your project.
 
-**Disclaimer:** This package is a prototype/under development,
-feel free to use it and provide feedback or  pull requests to help improve it.
+**Disclaimer:** This package and its documentation is a prototype/under development, feel free to use it and provide
+feedback or pull requests to help improve it.
 
 ## Installation
 
@@ -28,7 +27,7 @@ You can install the package via composer:
 composer require haringsrob/laravel-page-builder
 ```
 
-And publish the migration:
+And publish the migration (Only required if used together with Laravel Nova):
 
 ```bash
 php artisan vendor:publish --provider="Haringsrob\LaravelPageBuilder\LaravelPageBuilderServiceProvider" --tag="migrations"
@@ -36,9 +35,74 @@ php artisan vendor:publish --provider="Haringsrob\LaravelPageBuilder\LaravelPage
 
 ### Creating a component
 
+You can start by creating your component using the command line (provided by Laravel):
+
+`php artisan make:component Footer`
+
+```php
+namespace App\View\Components;
+
+use Illuminate\Contracts\View\View;
+use Illuminate\View\Component;
+
+class Footer extends Component
+{
+    /**
+     * @param \App\View\Components\ValueObjects\Link[] $links
+     * @param string $facebookLink
+     * @param string $instagramLink
+     */
+    public function __construct(
+        public array $links,
+        public ?string $facebookLink,
+        public string $instagramLink
+    ) {
+    }
+
+    public function render(): View
+    {
+        return view('components.footer', get_object_vars($this));
+    }
+}
+```
+
+#### Rendering the builder
+
+As the builder is simple in its form you can easily build a new page.
+
+This can be put in your controllers and can also be dynamically constructed (Like the Nova field does).
+
+```php
+$builder = new PageBuilderCollection(
+    [
+        new CenteredMenu(
+            links: [
+                new Link(href: route('bar'), label: __('Bar')),
+                new Link(href: route('foo'), label: __('Foo')),
+            ],
+            actions: [
+                new Button(href: '#beta-signup', label: __('Sign up for the beta')),
+            ]
+        ),
+        new Footer(
+            links: [
+                new Link(href: route('bar'), label: __('Bar')),
+                new Link(href: route('foo'), label: __('Foo')),
+            ],
+            facebookLink: null,
+            instagramLink: '#'
+
+        ),
+    ]
+);
+return view('layout.app', ['content' => (new BuilderContent($builder))->render()]);
+```
+
+### Laravel Nova page builder component
+
 A page builder component is an extension from a regular component.
 
-You can start by creating your component using the command line (provided by Laravel):
+In addition to a regular component, it also provides a form method that can be used to generate the form.
 
 `php artisan make:component ExamplePageBuilderComponent`
 
@@ -84,8 +148,8 @@ class ExamplePageBuilderComponent extends BuilderComponent
 }
 ```
 
-As you can see it is very similar to regular components, except that there is a
-getForm method and optionally a renderForBuilder method.
+As you can see it is very similar to regular components, except that there is a getForm method and optionally a
+renderForBuilder method.
 
 For now there are a couple of hardcoded types that the form builder supports:
 
@@ -101,18 +165,15 @@ The builder supports infinite nesting, and you can use the text fields for anyth
 
 The rendering of the component is done by you using regular blade files.
 
-By properly structuring the files, you can continue to use them without involving the
-page builder.
+By properly structuring the files, you can continue to use them without involving the page builder.
 
-### Adding the field to a Laravel Nova
+#### Adding the field to a Laravel Nova
 
-Internally there is a `PageBuilderPage` model, that holds the json structure of the page
-builder field.
+Internally there is a `PageBuilderPage` model, that holds the json structure of the page builder field.
 
 There is also a trait you can use to make your model working with the page builder.
 
-For example if you have a `Page` model, you can add `use HasPageBuilder;` to define the
-relation.
+For example if you have a `Page` model, you can add `use HasPageBuilder;` to define the relation.
 
 After adding the trait, you should add a migration to your Page table:
 
@@ -139,14 +200,15 @@ public function page(Page $page): View
 And in the blade component:
 
 ```html
+
 <html>
-<title>{{ $title }}</title>
+  <title>{{ $title }}</title>
 </html>
 <x-laravel-page-builder-builder-content :content="$structure"></x-laravel-page-builder-builder-content>
 ```
 
-If all is set up correctly, the page builder should be available in Nova with the components
-you created, and the ones provided by this package:
+If all is set up correctly, the page builder should be available in Nova with the components you created, and the ones
+provided by this package:
 
 The ui:
 ![Example screenshot](docs/screenshots/example.png)
@@ -154,8 +216,7 @@ The ui:
 This produces the following:
 ![Result](docs/screenshots/result.png)
 
-* I must admit, the ui can be improved quite a lot, but as this is a first prototype it works
-great!
+* I must admit, the ui can be improved quite a lot, but as this is a first prototype it works great!
 
 ## More examples
 
@@ -167,13 +228,12 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ### Testing
 
-The package does contain a couple of tests but this is still under progress and more should
-be added.
+The package does contain a couple of tests but this is still under progress and more should be added.
 
 ### Security
 
-The components are rendered in blade with allowing html: `{!! !!}`, please take actions
-required in your own implementations to ensure no xss is possible.
+The components are rendered in blade with allowing html: `{!! !!}`, please take actions required in your own
+implementations to ensure no xss is possible.
 
 If you discover any security related issues, please email rob@harings.be instead of using the issue tracker.
 
