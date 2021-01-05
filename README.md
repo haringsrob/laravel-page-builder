@@ -149,10 +149,10 @@ If all is set up correctly, the page builder should be available in Nova with th
 you created, and the ones provided by this package:
 
 The ui:
-![Example screenshot](./docs/screenshots/example.png)
+![Example screenshot](docs/screenshots/example.png)
 
 This produces the following:
-![Result](./docs/screenshots/result.png)
+![Result](docs/screenshots/result.png)
 
 * I must admit, the ui can be improved quite a lot, but as this is a first prototype it works
 great!

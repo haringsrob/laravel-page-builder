@@ -1,55 +1,53 @@
 {
-    "name": "haringsrob/laravel-page-builder",
-    "description": "A simple page builder with structured content",
-    "keywords": [
-        "haringsrob",
-        "laravel-page-builder"
-    ],
-    "homepage": "https://github.com/haringsrob/laravel-page-builder",
-    "license": "MIT",
-    "type": "library",
-    "authors": [
-        {
-            "name": "Harings Rob",
-            "email": "rob@harings.be",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": "^7.4|^8.0",
-        "illuminate/support": "^7.0|^8.0",
-        "laravel/nova": ">=2.9.0"
-    },
-    "require-dev": {
-        "orchestra/testbench": "5.*|6.*",
-        "phpunit/phpunit": "^9.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "Haringsrob\\LaravelPageBuilder\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Haringsrob\\LaravelPageBuilder\\Tests\\": "tests"
-        }
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Haringsrob\\LaravelPageBuilder\\LaravelPageBuilderServiceProvider"
-            ],
-            "aliases": {
-                "LaravelPageBuilder": "Haringsrob\\LaravelPageBuilder\\LaravelPageBuilderFacade"
-            }
-        }
+  "name": "haringsrob/laravel-page-builder",
+  "description": "A simple page builder with structured content",
+  "keywords": [
+    "haringsrob",
+    "laravel-page-builder"
+  ],
+  "homepage": "https://github.com/haringsrob/laravel-page-builder",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Harings Rob",
+      "email": "rob@harings.be",
+      "role": "Developer"
     }
+  ],
+  "require": {
+    "php": "^8.0",
+    "illuminate/support": "^7.0|^8.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "5.*|6.*",
+    "phpunit/phpunit": "^9.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Haringsrob\\LaravelPageBuilder\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Haringsrob\\LaravelPageBuilder\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Haringsrob\\LaravelPageBuilder\\LaravelPageBuilderServiceProvider"
+      ],
+      "aliases": {
+        "LaravelPageBuilder": "Haringsrob\\LaravelPageBuilder\\LaravelPageBuilderFacade"
+      }
+    }
+  }
 }

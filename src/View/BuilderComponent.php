@@ -2,6 +2,7 @@
 
 namespace Haringsrob\LaravelPageBuilder\View;
 
+use Haringsrob\LaravelPageBuilder\Exceptions\NoBuilderFormException;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
@@ -40,13 +41,16 @@ abstract class BuilderComponent extends Component
      *   ]
      * ```
      */
-    abstract static public function getForm(): array;
+    static public function getForm(): array
+    {
+        throw new NoBuilderFormException();
+    }
 
     /**
      * Gets the field label to use in the form. This can be overwritten but by
      * default is based on the class.
      */
-    public static function getLabel(): String
+    public static function getLabel(): string
     {
         $parts = explode('\\', static::class);
 

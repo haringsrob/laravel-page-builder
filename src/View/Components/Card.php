@@ -34,10 +34,13 @@ class Card extends BuilderComponent
 
     public function render(): View
     {
-        return view('laravel-page-builder::components.card', [
-            'content' => $this->content,
-            'child' => $this->child->renderForBuilder(),
-            'footer' => $this->footer
-        ]);
+        return view(
+            'laravel-page-builder::components.card',
+            [
+                'content' => $this->content,
+                'child' => $this->child->renderForBuilder(),
+                'footer' => $this->footer,
+            ]
+        );
     }
 }
