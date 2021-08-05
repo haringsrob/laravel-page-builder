@@ -15,26 +15,6 @@ class LaravelPageBuilderServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Only register the nova field if it is available.
-        if (class_exists('Laravel\Nova\Nova')) {
-            Laravel\Nova\Nova::serving(
-                function () {
-                    Laravel\Nova\Nova::script('laravel-page-builder-field', __DIR__ . '/../dist/js/field.js');
-                    Laravel\Nova\Nova::style('laravel-page-builder-field', __DIR__ . '/../dist/css/field.css');
-                }
-            );
-            if (!class_exists('CreatePageBuilderPagesTable')) {
-                $this->publishes(
-                    [
-                        __DIR__ . '/../database/migrations/create_page_builder_pages_table.php.stub' => database_path(
-                            'migrations/' . date('Y_m_d_His', time()) . '_create_page_builder_pages_table.php'
-                        ),
-                    ],
-                    'migrations'
-                );
-            }
-        }
-
         if ($this->app->runningInConsole()) {
             $this->publishes(
                 [
